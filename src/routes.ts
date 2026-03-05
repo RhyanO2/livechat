@@ -3,10 +3,13 @@ import { fastifyServer } from './server';
 
 export async function chat() {
   fastifyServer.get('/t', { websocket: true }, (socket, req) => {
-    // socket
 
     socket.on('message', (message) => {
-      console.log(`Message coming from:(${req.ip})`);
+      console.log(`IP: ${req.ip}: ${message.toString()}`);
+    });
+
+    socket.on('close', () => {
+      console.log(`${req.ip} Disconnected!`);
     });
   });
 }
