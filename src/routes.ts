@@ -20,9 +20,9 @@ export async function chat(fastify: FastifyInstance) {
 
     socket.on('message', (message) => {
       const text = message.toString();
-      // console.log(`IP: ${req.ip}: ${text}`);
+      console.log(`IP: ${req.ip}: ${text}`);
       for (const client of clients) {
-        if (client.readyState === 1) {
+        if (client !== socket && client.readyState === 1) {
           client.send(`(${req.ip}): ${text}`);
         }
       }
