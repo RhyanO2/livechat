@@ -22,7 +22,7 @@ export async function chat(fastify: FastifyInstance) {
       const text = message.toString();
       console.log(`IP: ${req.ip}: ${text}`);
       for (const client of clients) {
-        if (client && client.readyState === 1) {
+        if (client !== socket && client.readyState === 1) {
           client.send(`${text}`);
         }
       }
